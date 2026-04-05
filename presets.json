@@ -2,8 +2,13 @@
   {
     "modelo": "HyperX Cloud Flight",
     "categoria": "Headset Wireless",
-    "imagem": "images/hyperxcloudflight.jpg",
-    "tags": ["FPS", "Música", "Passos Táticos", "Imersão"],
+    "imagem": "images/hyperxcloudflight.webp",
+    "tags": [
+      "FPS",
+      "Música",
+      "Passos Táticos",
+      "Imersão"
+    ],
     "descricao": "Preset de alta performance excelente para jogos de tiro competitivo (CS:GO, Valorant) permitindo ouvir passos com precisão milimétrica. Além disso, o ajuste ficou muito bom e encorpado para escutar músicas com alta fidelidade.",
     "arquivo": "presets/HyperX Cloud Flight.fac"
   },
@@ -11,7 +16,12 @@
     "modelo": "KZ EDX Pro",
     "categoria": "In-Ear Com Fio",
     "imagem": "images/kzedxpro.webp",
-    "tags": ["Música", "Games", "Equilíbrio", "Grave"],
+    "tags": [
+      "Música",
+      "Games",
+      "Equilíbrio",
+      "Grave"
+    ],
     "descricao": "Ajuste refinado para este monitor de áudio. Além de ser muito bom e bem equilibrado para ouvir música evidenciando os médios e controlando os graves naturais do fone, também se provou extremamente capaz e nítido para uso em jogos.",
     "arquivo": "presets/KZ EDX Pro.fac"
   },
@@ -19,7 +29,11 @@
     "modelo": "Logitech X-530",
     "categoria": "Home Theater 5.1 / Estéreo",
     "imagem": "images/x530.png",
-    "tags": ["Música", "Grave Explosivo", "Filmes"],
+    "tags": [
+      "Música",
+      "Grave Explosivo",
+      "Filmes"
+    ],
     "descricao": "O principal fator desta equalização é justamente melhorar de forma considerável a nitidez e a profundidade musical do sistema. Extrai todo o poder das caixas e distribui melhor as frequências para uma experiência sonora muito superior.",
     "arquivo": "presets/Logitech X-530.fac"
   },
@@ -27,7 +41,11 @@
     "modelo": "Oni Kuma T27",
     "categoria": "In-Ear Wireless 2.4GHz",
     "imagem": "images/t27.webp",
-    "tags": ["Gamer", "Música", "Custo Benefício"],
+    "tags": [
+      "Gamer",
+      "Música",
+      "Custo Benefício"
+    ],
     "descricao": "Apesar de ser um fone de ouvido sem fio in-ear de baixo custo que não entrega muito de fábrica, este preset consegue aprimorar bastante o uso dele. Não fica 100% perfeito, mas o resultado final fica muito melhor e definido tanto para músicas quanto principalmente para a imersão em games.",
     "arquivo": "presets/Oni Kuma.fac"
   }
