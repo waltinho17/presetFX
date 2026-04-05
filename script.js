@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let allPresets = [];
     let activeCategory = 'Todos';
+    const eqCache = {};
 
     // Busca os dados do JSON
     fetch('presets.json')
@@ -70,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h3 class="preset-model">${preset.modelo}</h3>
                     ${tagsHtml}
                     <p class="preset-desc">${preset.descricao}</p>
+                    <div class="preset-eq" data-arquivo="${preset.arquivo}"></div>
                     <div class="preset-actions">
                         <a href="${preset.arquivo}" download class="btn btn-download">Download Preset</a>
                     </div>
@@ -78,12 +80,134 @@ document.addEventListener('DOMContentLoaded', () => {
 
             presetsGrid.appendChild(card);
         });
+
+        // Após renderizar os cards, buscar as barras de EQ
+        presetsGrid.querySelectorAll('.preset-eq').forEach(container => {
+            const arquivo = container.getAttribute('data-arquivo');
+            if (arquivo) {
+                loadEQData(arquivo, container);
+            }
+        });
+    }
+
+    // Função para carregar e parsear o arquivo .fac
+    function loadEQData(arquivo, container) {
+        if (eqCache[arquivo]) {
+            drawEQ(eqCache[arquivo], container);
+            return;
+        }
+        
+        fetch(arquivo)
+            .then(res => {
+                if (!res.ok) throw new Error('Falha ao carregar');
+                return res.text();
+            })
+            .then(text => {
+                const lines = text.split('\n');
+                const bands = [];
+                
+                lines.forEach(line => {
+                    // Extrair bandas de EQ
+                    if (line.includes(': Boost/Cut')) {
+                        bands.push(parseFloat(line.split(':')[0].trim()));
+                    }
+                });
+
+                eqCache[arquivo] = bands;
+                drawEQ(bands, container);
+            })
+            .catch(err => {
+                console.error('Erro ao ler EQ para ' + arquivo, err);
+                if (container) container.innerHTML = '<span class="eq-error">EQ indisponível</span>';
+            });
+    }
+
+    // Função para desenhar o gráfico vetorial (SVG) no container
+    function drawEQ(bands, container) {
+        if (!bands || bands.length === 0) {
+            container.innerHTML = '';
+            return;
+        }
+
+        // Descobre o máximo e mínimo reais do preset
+        let maxB = Math.max(...bands);
+        let minB = Math.min(...bands);
+        
+        // Se a variação for muito pequena, força um range mínimo para não ficar uma linha reta esticada
+        if (maxB - minB < 4) {
+            const mid = (maxB + minB) / 2;
+            maxB = mid + 2;
+            minB = mid - 2;
+        }
+        
+        const range = maxB - minB;
+        // Padding para a linha não encostar nas bordas do SVG
+        const paddedMax = maxB + range * 0.3; 
+        const paddedMin = minB - range * 0.1; // Menos padding embaixo para dar sensação de preenchimento
+        const totalRange = paddedMax - paddedMin || 1;
+
+        const width = 300;
+        const height = 100;
+        const stepX = width / (bands.length - 1);
+
+        let points = [];
+        let html = `<div class="eq-svg-container" title="Curva de Equalização">
+                    <svg viewBox="-10 0 ${width + 20} ${height}" class="eq-svg" preserveAspectRatio="none">`;
+        
+        // Linhas de grade verticais
+        bands.forEach((_, i) => {
+            const x = i * stepX;
+            html += `<line x1="${x}" y1="0" x2="${x}" y2="${height}" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="4" />`;
+        });
+
+        // 1. Calcula as coordenadas exatas de cada ponto
+        bands.forEach((val, i) => {
+            const x = i * stepX;
+            // No SVG, o Y=0 é o topo, logo invertemos o valor
+            const y = height - ((val - paddedMin) / totalRange) * height;
+            points.push({x, y, val});
+        });
+
+        const pointsStr = points.map(p => `${p.x},${p.y}`).join(' ');
+        
+        // 2. Define o gradiente vermelho
+        const uniqueId = container.dataset.arquivo.replace(/[^a-zA-Z0-9]/g, '');
+        html += `<defs>
+                    <linearGradient id="grad-${uniqueId}" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="rgba(230, 32, 32, 0.4)" />
+                        <stop offset="100%" stop-color="rgba(230, 32, 32, 0.0)" />
+                    </linearGradient>
+                 </defs>`;
+
+        // 3. Área preenchida com gradiente (Polygon do chão até a curva)
+        html += `<polygon points="0,${height} ${pointsStr} ${width},${height}" fill="url(#grad-${uniqueId})" />`;
+        
+        // 4. A linha da curva (Polyline)
+        html += `<polyline points="${pointsStr}" fill="none" stroke="var(--accent-red)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="eq-line" />`;
+
+        // 5. Os pontos (Bolinhas) e os valores em texto
+        points.forEach((p, i) => {
+            html += `<circle cx="${p.x}" cy="${p.y}" r="4" fill="var(--bg-secondary)" stroke="var(--accent-red)" stroke-width="2" class="eq-point" />`;
+        });
+
+        html += `</svg></div>`;
+        container.innerHTML = html;
     }
 
     // Construir botões de categoria dinamicamente
     function buildCategoryFilters(presets) {
-        // Extrai as categorias de forma única, ignorando os campos vazios
-        const categories = ['Todos', ...new Set(presets.map(p => p.categoria).filter(Boolean))];
+        // Ordem forçada requerida pelo usuário
+        const orderMap = {
+            "Headset Wireless": 1,
+            "In-Ear Com Fio": 2,
+            "In-Ear Wireless 2.4GHz": 3,
+            "Home Theater 5.1 / Estéreo": 4
+        };
+
+        // Extrai as categorias de forma única, ignorando os campos vazios e ordenando com o orderMap
+        const categories = ['Todos', ...Array.from(new Set(presets.map(p => p.categoria).filter(Boolean))).sort((a, b) => {
+            return (orderMap[a] || 99) - (orderMap[b] || 99);
+        })];
         
         categoryFilters.innerHTML = '';
         categories.forEach(cat => {
