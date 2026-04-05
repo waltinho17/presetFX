@@ -42,10 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             card.className = 'preset-card';
 
-            // Imagem de Fundo
             let imageHtml = '';
             if (preset.imagem) {
-                imageHtml = `<img src="${preset.imagem}" class="preset-bg-image" alt="Device model">`;
+                imageHtml = `<div class="preset-image-container">
+                                <img src="${preset.imagem}" class="preset-image" alt="${preset.modelo}">
+                             </div>`;
             }
 
             // Categoria
@@ -64,11 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             card.innerHTML = `
                 ${imageHtml}
-                ${categoryHtml}
-                <h3 class="preset-model">${preset.modelo}</h3>
-                ${tagsHtml}
-                <p class="preset-desc">${preset.descricao}</p>
-                <a href="${preset.arquivo}" download class="btn btn-download">Download Preset</a>
+                <div class="preset-content">
+                    ${categoryHtml}
+                    <h3 class="preset-model">${preset.modelo}</h3>
+                    ${tagsHtml}
+                    <p class="preset-desc">${preset.descricao}</p>
+                    <div class="preset-actions">
+                        <a href="${preset.arquivo}" download class="btn btn-download">Download Preset</a>
+                    </div>
+                </div>
             `;
 
             presetsGrid.appendChild(card);

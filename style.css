@@ -222,8 +222,7 @@ h1, h2 {
 .preset-card {
     background-color: var(--bg-secondary);
     border: 1px solid var(--card-border);
-    border-radius: 8px;
-    padding: 24px;
+    border-radius: 12px; /* increased border radius */
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -243,50 +242,49 @@ h1, h2 {
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease;
+    z-index: 10;
 }
 
 .preset-card:hover {
     transform: translateY(-5px);
     border-color: rgba(230, 32, 32, 0.4);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
 }
 
 .preset-card:hover::before {
     transform: scaleX(1);
 }
 
-.preset-bg-image {
-    position: absolute;
-    top: 0;
-    left: 0;
+.preset-image-container {
     width: 100%;
-    height: 100%;
-    opacity: 0.12;
-    z-index: 0;
-    pointer-events: none;
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    object-fit: cover;
-    object-position: center;
-    filter: grayscale(100%) blur(4px) brightness(0.7);
+    height: 200px;
+    background: linear-gradient(135deg, rgba(20,20,25,1) 0%, rgba(30,30,35,1) 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-bottom: 1px solid var(--card-border);
 }
 
-.preset-card:hover .preset-bg-image {
-    opacity: 0.45;
-    transform: scale(1.1) translateY(-2%);
-    filter: grayscale(0%) blur(0px) brightness(1);
-    box-shadow: inset 0 0 50px rgba(0,0,0,1);
+.preset-image {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
 }
 
-.preset-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 70%;
-    background: linear-gradient(to top, var(--bg-secondary) 15%, transparent 100%);
-    pointer-events: none;
-    z-index: 0;
+.preset-card:hover .preset-image {
+    transform: scale(1.1) translateY(-5px);
+    filter: drop-shadow(0 15px 25px rgba(230,32,32,0.2));
+}
+
+.preset-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .preset-category {
@@ -420,6 +418,39 @@ footer {
     font-size: 0.9rem;
 }
 
+/* GitHub Floating Button */
+.github-link {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(var(--glass-blur));
+    z-index: 100;
+}
+
+.github-link:hover {
+    background-color: #333; /* Github brand color approx */
+    color: white;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    border-color: #444;
+}
+
+.github-link svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
     .hero h1 {
@@ -432,5 +463,12 @@ footer {
     
     .search-container {
         padding: 0 15px;
+    }
+
+    .github-link {
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
     }
 }
