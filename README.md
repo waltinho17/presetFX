@@ -1,31 +1,40 @@
-# FX Sound Presets Viewer
+# PresetFX
 
-A página estática oficial para a hospedagem e compartilhamento dos meus presets customizados para o FX Sound.
-Construída com um design super rápido, elegante e com pegada Gamer (Dark Mode com Vermelho Intenso).
+O **PresetFX** é uma vitrine e banco de dados projetado para hospedar e compartilhar presets customizados de equalização de áudio de alta performance para o software [FX Sound](https://www.fxsound.com/).
 
-## Como adicionar um novo preset?
+Seja para extrair o máximo do grave na sua música favorita, ouvir os mínimos detalhes de passos nos jogos FPS mais competitivos, ou elevar a qualidade de headsets de baixo custo, o PresetFX traz a configuração ideal pronta para download direto.
 
-Para você não precisar nunca mexer em códigos HTML longos ou em CSS, toda a base de dados do site é feita através do arquivo `presets.json`. Siga o passo a passo:
+---
 
-1. **Gere o arquivo do Preset:** Exporte seu equalizador no programa FX Sound. O arquivo geralmente tem final `.fac`.
-2. **Coloque na Pasta:** Mova esse seu novo arquivo `.fac` para a pasta `/presets/` do projeto.
-3. **Edite o Banco de Dados:** Abra o arquivo principal `presets.json`. Você verá que há uma lista de presets lá. Simplesmente adicione uma nova entrada seguindo o mesmo padrão:
+## 🎧 Acessando o Site
+Acesse nossa vitrine completa e interface gráfica online:
+👉 **[https://waltinho17.github.io/presetFX/](https://waltinho17.github.io/presetFX/)**
+
+---
+
+## 🛠️ Como o projeto funciona (Painel do Desenvolvedor)
+
+Este projeto foi construído puramente de forma estática (HTML/CSS/Vanilla JS) para ter hospedagem direta no GitHub Pages e alta performance. Todo layout visual com *Glassmorphism* trabalha independentemente dos dados.
+
+A base de dados do site reside inteiramente no arquivo `presets.json`.
+
+### Passo a passo rápido: Como atualizar a página com novos presets?
+
+Para colocar novos fones no ar você **não precisa programar código HTML**.
+
+1. **Adicione os Arquivos Físicos:** Salve o arquivo de som `.fac` do FX Sound na pasta `presets/`. E adicione uma foto de perfil do fone (sem fundo ou foto inteira) na pasta `images/`.
+2. **Edite o Banco de Dados:** Abra o arquivo `presets.json` e adicione o pedaço de código representando as informações do seu novo aparelho, conforme a estrutura:
 
 ```json
 {
-  "modelo": "Nome do Fone ou Uso",
-  "tags": ["FPS", "Agudos"],
-  "descricao": "Uma breve descrição ensinando para que serve o seu preset maravilho.",
-  "arquivo": "presets/nome_do_arquivo_exato_que_voce_salvou.fac"
+  "modelo": "Nome do Modelo",
+  "categoria": "Headset Wireless / In-Ear / Home Theater",
+  "imagem": "images/nomedaimagem.webp",
+  "tags": ["FPS", "Música"],
+  "descricao": "Explique de forma objetiva como o seu preset aprimorou o som do modelo.",
+  "arquivo": "presets/nome_do_arquivo.fac"
 }
 ```
+*(Lembrete: verifique se adicionou a vírgula para separar da chave anterior.)*
 
-🚨 Observação: Se não for o último item da lista do JSON, não esqueça de colocar uma vírgula `,` logo após a chave `}` para separar do próximo preset.
-
-4. **Salve e suba os arquivos no GitHub!** O GitHub Pages vai atualizar e a página recarregará os novos Cards automaticamente para qualquer um conseguir baixar.
-
-## Visual e Componentes
-- Feito puramente em **HTML, CSS e Vanilla Javascript** (sem bibliotecas externas) para assegurar o funcionamento offline e hospedagem extremamente leve.
-- Responsividade completa
-- Glassmorphism UI
-- Mecanismo de Busca em Tempo Real (Busca por Tags, Título e Descrição Otimizada).
+3. **Suba para o GitHub:** Salve o projeto e envie (`git push`) para a nuvem. O site automaticamente montará todos os filtros, textos, fundos dinâmicos e botões de download.
