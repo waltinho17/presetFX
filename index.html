@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FX Sound Presets Viewer</title>
+    <meta name="description" content="Baixe os melhores presets de áudio para o FX Sound, organizados por modelo de fone.">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-grid"></div>
+
+    <header class="hero">
+        <div class="container">
+            <h1>FX SOUND <span class="highlight">PRESETS</span></h1>
+            <p class="subtitle">Arquivos de equalização customizados de alta performance para extrair o máximo do seu setup de áudio.</p>
+            <div class="hero-actions">
+                <a href="#presets-section" class="btn btn-primary">Ver Presets</a>
+                <a href="https://www.fxsound.com/" target="_blank" class="btn btn-secondary">Baixar FX Sound Oficial</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="presets-section" class="presets-section">
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Digite o modelo do seu fone ou o tipo de uso (ex: CS:GO, HyperX)..." autocomplete="off">
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <div id="category-filters" class="category-filters">
+                <!-- Botões de filtro criados via JS -->
+            </div>
+
+            <div id="loading" class="loading">Carregando presets...</div>
+            <div id="no-results" class="no-results hidden">Nenhum preset encontrado para a sua busca.</div>
+            
+            <div id="presets-grid" class="presets-grid">
+                <!-- Cards serão injetados aqui via JavaScript -->
+            </div>
+        </section>
+
+        <section class="tutorial-section">
+            <h2><span class="highlight">Como</span> Instalar</h2>
+            <div class="tutorial-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <p>Baixe o arquivo <strong>.fac</strong> clicando no botão do preset desejado.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <p>Abra o <strong>FX Sound</strong> no seu computador.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <p>No canto esquerdo inferior do programa, clique no botão para expandir o menu e vá em <strong>"Import Preset"</strong>.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <p>Selecione o arquivo <strong>.fac</strong> que você salvou e divirta-se!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2026 FX Sound Presets Viewer.</p>
+            <p>Desenvolvido para máxima fidelidade sonora.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
