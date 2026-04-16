@@ -64,6 +64,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>`;
             }
 
+            // Arquivos e lógica de seleção
+            let downloadActionsHtml = '';
+            let defaultFile = '';
+
+            if (preset.arquivos && Array.isArray(preset.arquivos) && preset.arquivos.length > 0) {
+                defaultFile = preset.arquivos[0].url || preset.arquivos[0].arquivo;
+                
+                let optionsHtml = preset.arquivos.map((arq, index) => {
+                    let nome = arq.nome || `Preset ${index + 1}`;
+                    let url = arq.url || arq.arquivo;
+                    return `<option value="${url}">${nome}</option>`;
+                }).join('');
+
+                downloadActionsHtml = `
+                    <div class="preset-selector-container">
+                        <select class="preset-selector">
+                            ${optionsHtml}
+                        </select>
+                    </div>
+                    <a href="${defaultFile}" download class="btn btn-download">Download</a>
+                `;
+            } else {
+                defaultFile = preset.arquivo;
+                downloadActionsHtml = `
+                    <a href="${defaultFile}" download class="btn btn-download">Download Preset</a>
+                `;
+            }
+
             card.innerHTML = `
                 ${imageHtml}
                 <div class="preset-content">
@@ -71,14 +99,28 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h3 class="preset-model">${preset.modelo}</h3>
                     ${tagsHtml}
                     <p class="preset-desc">${preset.descricao}</p>
-                    <div class="preset-eq" data-arquivo="${preset.arquivo}"></div>
+                    <div class="preset-eq" data-arquivo="${defaultFile}"></div>
                     <div class="preset-actions">
-                        <a href="${preset.arquivo}" download class="btn btn-download">Download Preset</a>
+                        ${downloadActionsHtml}
                     </div>
                 </div>
             `;
 
             presetsGrid.appendChild(card);
+
+            // Lógica do select (troca de preset on-the-fly)
+            const selectEl = card.querySelector('.preset-selector');
+            if (selectEl) {
+                const downloadBtn = card.querySelector('.btn-download');
+                const eqContainer = card.querySelector('.preset-eq');
+
+                selectEl.addEventListener('change', (e) => {
+                    const newFile = e.target.value;
+                    downloadBtn.href = newFile;
+                    eqContainer.setAttribute('data-arquivo', newFile);
+                    loadEQData(newFile, eqContainer);
+                });
+            }
         });
 
         // Após renderizar os cards, buscar as barras de EQ
@@ -198,9 +240,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function buildCategoryFilters(presets) {
         // Ordem forçada requerida pelo usuário
         const orderMap = {
-            "Headset Wireless": 1,
-            "In-Ear Com Fio": 2,
-            "In-Ear Wireless 2.4GHz": 3,
+            "In-Ear Com Fio": 1,
+            "In-Ear Wireless 2.4GHz": 2,
+            "Headset Wireless": 3,
             "Home Theater 5.1 / Estéreo": 4
         };
 

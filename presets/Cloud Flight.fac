@@ -1,6 +1,6 @@
 CLASS1 : Effect Type
 9: Version
-Hyper X Cloud Flight
+Cloud Flight
 0: Double Params Flag
 1: Total number of elements
 38: Main 0
@@ -31,7 +31,7 @@ Hyper X Cloud Flight
 1: On/Off Flag
 Band 1
    62.5: CF
-   1.9685: Boost/Cut
+   1.02362: Boost/Cut
 Band 2
    115: CF
    -1: Boost/Cut
