@@ -69,5 +69,47 @@
     ],
     "descricao": "O principal fator desta equalização é justamente melhorar de forma considerável a nitidez e a profundidade musical do sistema. Extrai todo o poder das caixas e distribui melhor as frequências para uma experiência sonora muito superior.",
     "arquivo": "presets/Logitech X-530.fac"
+  },
+  {
+    "modelo": "HyperX Cloud 2",
+    "categoria": "Headset Com Fio",
+    "imagem": "images/cloud2.png",
+    "tags": [
+      "FPS",
+      "Música",
+      "Passos Táticos"
+    ],
+    "descricao": "Conjunto de presets para o clássico HyperX Cloud 2. O modo CS2 aprimora as frequências essenciais para identificar passos com clareza, enquanto o modo Música entrega uma experiência encorpada e imersiva.",
+    "arquivos": [
+      {
+        "nome": "Competitivo / CS2",
+        "arquivo": "presets/Cloud 2 - CS2.fac"
+      },
+      {
+        "nome": "Música",
+        "arquivo": "presets/Cloud 2 - Música.fac"
+      }
+    ]
+  },
+  {
+    "modelo": "MCHOSE V9 Pro",
+    "categoria": "Headset Wireless",
+    "imagem": "images/mchose-v9-pro.webp",
+    "tags": [
+      "Gamer",
+      "Música",
+      "Competitivo"
+    ],
+    "descricao": "Presets desenvolvidos para extrair o máximo do MCHOSE V9 Pro. Utilize o perfil CS2 para ter vantagem na espacialidade sonora em jogos competitivos, e o perfil Música para maior fidelidade, graves controlados e equilíbrio geral.",
+    "arquivos": [
+      {
+        "nome": "Competitivo / CS2",
+        "arquivo": "presets/MCHOSE V9 Pro - CS2.fac"
+      },
+      {
+        "nome": "Música",
+        "arquivo": "presets/MCHOSE V9 Pro - Música.fac"
+      }
+    ]
   }
 ]
